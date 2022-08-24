@@ -8,7 +8,11 @@ def nothing(x):
 
 cap = cv2.VideoCapture(0)
 
+#creates a new window named 'Trackbars'
 cv2.namedWindow('Trackbars')
+
+#creates trackbars following the configuration; Trackbar name, referring window name, min value, max value, & call back on change
+#Hue maximum is 179, so that is the max value we set it to
 
 cv2.createTrackbar('L - H', 'Trackbars', 0, 179, nothing)
 
@@ -26,7 +30,8 @@ while True:
     _, frame = cap.read()
     frame = cv2.flip(frame, 1)
 
-    hsv = cv2.ctvColor(frame, cv2.COLOR_BGR2HSV)
+    #converts color into HSV (Hue Saturation Value)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
     l_h = cv2.getTrackbarPos('L - H','Trackbars')
     l_s = cv2.getTrackbarPos('L - S','Trackbars')
@@ -41,6 +46,7 @@ while True:
     
     result = cv2.bitwise_and(frame, frame, mask = mask)
 
+    #shows all the frames
     cv2.imshow('Frame', frame)
     cv2.imshow('mask', mask)
     cv2.imshow('result', result)
@@ -51,3 +57,8 @@ while True:
 
 cap.realease()
 cv2.destroyAllWindows()
+
+
+
+#green 32,90,47,94,255,172
+#purple 96, 0, 97, 149, 187, 241
